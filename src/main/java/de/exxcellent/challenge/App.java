@@ -1,5 +1,7 @@
 package de.exxcellent.challenge;
 
+import java.io.IOException;
+
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
  * design. Read: create your own classes and packages as appropriate.
@@ -9,6 +11,14 @@ package de.exxcellent.challenge;
 public final class App {
 
     public static void main(String... args) {
+
+        CSVImporter csvImporter = new CSVImporter();
+        String fileName = "weather.csv";
+        try{
+            csvImporter.importCSV(fileName);
+        }catch(IOException ioe){
+            System.out.printf("Can not find %s%n",fileName);
+        }
 
         // Your preparation code …
 

@@ -57,7 +57,7 @@ public class Analyzer {
 
     //Only finds returns the first Entry with the highest Spread. A later record with the same Spread is ignored.
     //Errors with empty Lists yet.
-    private HasSpreadedValues findSmallestSpreadRecord(ArrayList<HasSpreadedValues> records) {
+    protected HasSpreadedValues findSmallestSpreadRecord(ArrayList<HasSpreadedValues> records) {
         HasSpreadedValues recordWithSmallestSpread = records.stream().findFirst().get();
         int lowestSpread = recordWithSmallestSpread.calculateSpread();
         for (HasSpreadedValues record : records) {

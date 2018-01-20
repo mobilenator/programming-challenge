@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.models.FootballData;
 import de.exxcellent.challenge.models.HasSpreadedValues;
 import de.exxcellent.challenge.models.WeatherData;
 import org.apache.commons.csv.CSVRecord;
@@ -35,12 +36,21 @@ public final class App {
                 weatherData.add(newWeatherData);
             }
             Analyzer analyzer = new Analyzer();
-            WeatherData smallestSpreadRecord = (WeatherData)analyzer.findSmallestSpreadRecord(weatherData);
-            dayWithSmallestTempSpread=Integer.toString(smallestSpreadRecord.getDay());
-
+            WeatherData smallestSpreadWeatherRecord = (WeatherData) analyzer.findSmallestSpreadRecord(weatherData);
+            dayWithSmallestTempSpread = Integer.toString(smallestSpreadWeatherRecord.getDay());
 
 
             ArrayList<CSVRecord> footballRecords = csvImporter.importCSV(fileNameFootball);
+            ArrayList<HasSpreadedValues> footballData = new ArrayList<HasSpreadedValues>();
+            for (CSVRecord record : footballRecords) {
+                String teamName = record.get(FootballData.TEAM_PROPERTY_NAME);
+                int goals = Integer.parseInt(record.get(FootballData.GOALS_PROPERTY_NAME));
+                int goalsAllowed = Integer.parseInt(record.get(FootballData.GOALS_ALLOWED_PROPERTY_NAME));
+                FootballData newFootballData = new FootballData(teamName, goals, goalsAllowed);
+                footballData.add(newFootballData);
+            }
+            FootballData smallestSpreadFootballRecord = (FootballData) analyzer.findSmallestSpreadRecord(footballData);
+            teamWithSmallesGoalSpread = smallestSpreadFootballRecord.getTeamName();
 
 
         } catch (IOException ioe) {
